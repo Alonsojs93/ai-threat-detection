@@ -285,7 +285,7 @@ curl -X POST "http://localhost:8000/analyze" \
 
 Para una detección robusta, el lote debería representar una ventana temporal corta, por ejemplo cinco minutos, con suficiente actividad para calcular las variables de comportamiento.
 
-Respuesta esperada para un lote con múltiples intentos fallidos:
+Respuesta obtenida al analizar un lote de 60 intentos fallidos:
 
 ```json
 {
