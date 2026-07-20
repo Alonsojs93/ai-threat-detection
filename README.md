@@ -259,28 +259,26 @@ Respuesta de ejemplo:
 ### Ejemplo de posible fuerza bruta
 
 ```bash
-curl -X POST "http://localhost:8000/analyze" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "records": [
-      {
-        "timestamp": "2026-07-18T10:30:00Z",
-        "ip": "198.51.100.99",
-        "method": "POST",
-        "path": "/wp-login.php",
-        "status_code": 401,
-        "response_time_ms": 120
-      },
-      {
-        "timestamp": "2026-07-18T10:30:01Z",
-        "ip": "198.51.100.99",
-        "method": "POST",
-        "path": "/wp-login.php",
-        "status_code": 401,
-        "response_time_ms": 118
-      }
-    ]
-  }'
+$records = 1..60 | ForEach-Object {
+    @{
+        timestamp = "2026-07-20T10:30:00Z"
+        ip = "198.51.100.99"
+        method = "POST"
+        path = "/wp-login.php"
+        status_code = 401
+        response_time_ms = 120
+    }
+}
+
+$body = @{
+    records = $records
+} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod `
+    -Uri "http://127.0.0.1:8000/analyze" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body
 ```
 
 Para una detección robusta, el lote debería representar una ventana temporal corta, por ejemplo cinco minutos, con suficiente actividad para calcular las variables de comportamiento.
