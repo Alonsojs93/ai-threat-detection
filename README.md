@@ -358,18 +358,3 @@ Las pruebas incluidas validan:
 - detección de un patrón de fuerza bruta.
 
 ---
-
-## 8. Consideraciones para producción
-
-Este proyecto es una prueba de concepto.
-
-Para un despliegue productivo se recomienda:
-
-- construir las variables sobre ventanas temporales persistentes mediante Redis, Kafka o un SIEM;
-- calibrar umbrales con tráfico real;
-- versionar el modelo y monitorear drift;
-- registrar decisiones para auditoría;
-- proteger la API con autenticación y rate limiting;
-- integrar la acción de bloqueo con controles perimetrales;
-- añadir explicabilidad y revisión humana para acciones de alto impacto;
-- reentrenar periódicamente con datos representativos del entorno.
